@@ -107,16 +107,22 @@ def createCsvDataFile(FILENAME: str, FILENAME_MOD: str, country: str):  # отс
     headers_mod = ['date', 'state', 'amount']
     days_mod = []
 
-    buffer = None
+    for i in range(len(days)):
+        if i <= 0:
+            continue
+        else:
+            for j in range(3):
+                days[i][j + 1] = int(days[i][j+1]) + int(days[i - 1][j + 1])
 
     for i in tqdm(range(date_delta)):
 
         if i <= 0:
             for j in tqdm(range(3)):  # 3 потому что для каждого поля
                 days_mod.append([days[i][0], headers[j + 1], days[i][j + 1]])
+                # необходимо для внесения первичного значения
         else:
             for j in tqdm(range(3)):
-                days_mod.append([days[i][0], headers[j + 1], int(int(days[i][j + 1]) + int(days[i - 1][j + 1]))])
+                days_mod.append([days[i][0], headers[j + 1], int(int(days[i][j + 1]))])
                 # если не суммировать получим график сравнений относительно каждого дня
 
     with open(FILENAME_MOD, "w", newline='') as file:  # заполняем первою строку документа которая содержит заголовки
