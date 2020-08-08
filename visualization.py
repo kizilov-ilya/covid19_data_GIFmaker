@@ -8,7 +8,7 @@ from tqdm import tqdm
 
 start_date = datetime(2020, 3, 1)
 date_delta = (datetime.now() - start_date).days
-file = "C:\\Users\\Ilya\\PycharmProjects\\Sketches\\corona_stat\\choosed_country.csv"
+file = ".\\choosed_country.csv"
 
 # Section 2
 df = pd.read_csv('users_mod.csv', parse_dates=['date'])
@@ -53,12 +53,13 @@ for i in tqdm(range(10, length + 10)):
     ax.legend(loc='upper left', frameon=False)
     ax.grid(axis='x')
     fig = ax.get_figure()
-    fig.savefig(f".\\pngs\\{i}pngs.png")
+    fig.savefig(f".\\pngs\\{i+1000}pngs.png")
     plt.close(fig=fig)
 # Section 8
 
 gif_name = f'COVID_{filename}.gif'
-fps = 6
+fps = 30
 file_list = glob.glob('.\\pngs\\*')
+print(file_list)
 clip = mpy.ImageSequenceClip(file_list, fps=fps)
 clip.write_gif(f'{gif_name}', fps=fps)
